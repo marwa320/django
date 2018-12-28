@@ -1,0 +1,70 @@
+{% extends 'base_client.html' %}
+{% load static %}
+
+{% block body %}
+<div id="all">
+        <div id="content">
+          <div class="container">
+            <div class="row">
+              <div id="basket" class="col-lg-12">
+                <div class="box">
+                  <form method="post" action="{% url 'ecommerce:envoyer_commande' %}">
+
+                      {% csrf_token %}
+                    <h1>Panier des achats</h1> 
+                    <p class="text-muted">Vous avez 3 produit(s) dans votre panier.</p>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th colspan="2">Produit</th>
+                            <th>Quantité</th>
+                            <th>Prix</th>
+                            <th>Discount</th>
+                            <th colspan="2">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          {% for product in userProducts %}
+                          <tr>
+                            <td><a href="#"><img src="/media/{{ product.image }}" alt="Black Blouse Armani"></a></td>
+                            <td><a href="#">{{ product.name_product }}</a></td>
+                            <td>
+                              <input type="number" value="1" class="form-control">
+                            </td>
+                            <td>{{ product.prix_vente }}</td>
+                            <td>$0.00</td>
+                            <td>{{ product.prix_vente }}</td>
+                            <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th colspan="5">Total</th>
+                            <th colspan="2">$446.00</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive-->
+                    <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
+                      <div class="left"><a href="{% url 'ecommerce:produit_client'  %}" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>Continuer shopping</a></div>
+                      <div class="right">
+                        <button class="btn btn-outline-secondary"><i class="fa fa-refresh"></i>Mise à jour panier</button>
+                        <button type="submit" class="btn btn-primary">Envoyer commande<i class="fa fa-chevron-right"></i></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.box-->
+           
+              </div>
+              <!-- /.col-lg-9-->
+           
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
